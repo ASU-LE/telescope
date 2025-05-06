@@ -41,14 +41,11 @@ export default class TypeORMWatcher
     {
         this.batchId = batchId
         this.data = {level, data};
-        console.log(this.data);
     }
 
     public static  capture(telescope: Telescope)
     {
-        console.log('capture called')
         eventEmitter.on('query', async (type: LogType, query: any, parameters: any[], ...args: any[]) => {
-            console.log('event caught')
             const watcher = new TypeORMWatcher({query, parameters, args}, type, telescope.batchId)
             await watcher.save()
         })
@@ -56,7 +53,6 @@ export default class TypeORMWatcher
 
     public async save()
     {
-        console.log('save called')
         const entry = new TypeORMWatcherEntry(this.data, this.batchId)
         await DB.logs().save(entry)
     }

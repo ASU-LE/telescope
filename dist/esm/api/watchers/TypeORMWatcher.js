@@ -22,18 +22,14 @@ export default class TypeORMWatcher {
     constructor(data, level, batchId) {
         this.batchId = batchId;
         this.data = { level, data };
-        console.log(this.data);
     }
     static capture(telescope) {
-        console.log('capture called');
         eventEmitter.on('query', async (type, query, parameters, ...args) => {
-            console.log('event caught');
             const watcher = new TypeORMWatcher({ query, parameters, args }, type, telescope.batchId);
             await watcher.save();
         });
     }
     async save() {
-        console.log('save called');
         const entry = new TypeORMWatcherEntry(this.data, this.batchId);
         await DB.logs().save(entry);
     }
