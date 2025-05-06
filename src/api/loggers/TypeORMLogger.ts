@@ -17,7 +17,10 @@ export default class TypeORMLogger extends AbstractLogger {
     constructor({
                     options = true,
                     telescopeTable = 'telescopes'
-                }: TypeORMLoggerOptions) {
+                }: TypeORMLoggerOptions = {
+                    options: true,
+                    telescopeTable: 'telescopes'
+    }) {
         super(options);
         this.eventEmitter = eventEmitter
         this.telescopeTable = telescopeTable;
@@ -25,21 +28,21 @@ export default class TypeORMLogger extends AbstractLogger {
 
     public logQuery(query: string, parameters?: any[], queryRunner?: any): void {
         // If the query is from telescope, we don't want to log it
-        if (query.includes(this.telescopeTable)) {
+        if (query.includes(this.telescopeTable) || query === "COMMIT" || query === "ROLLBACK" || query === "BEGIN" || query === "START TRANSACTION") {
             return;
         }
         this.eventEmitter.emit('query', LogType.LOG, query, parameters);
     }
 
     public logQuerySlow(time: number, query: string, parameters?: any[], queryRunner?: any): void {
-        if (query.includes(this.telescopeTable)) {
+        if (query.includes(this.telescopeTable) || query === "COMMIT" || query === "ROLLBACK" || query === "BEGIN" || query === "START TRANSACTION") {
             return;
         }
         this.eventEmitter.emit('query', LogType.QUERY_SLOW, query, parameters, time);
     }
 
     public logQueryError(error: string, query: string, parameters?: any[], queryRunner?: QueryRunner) {
-        if (query.includes(this.telescopeTable)) {
+        if (query.includes(this.telescopeTable) || query === "COMMIT" || query === "ROLLBACK" || query === "BEGIN" || query === "START TRANSACTION") {
             return;
         }
         this.eventEmitter.emit('query', LogType.QUERY_ERROR, query, parameters, error);

@@ -7,7 +7,7 @@ type TypeORMLoggerOptions = {
 export default class TypeORMLogger extends AbstractLogger {
     private eventEmitter;
     private telescopeTable;
-    constructor({ options, telescopeTable }: TypeORMLoggerOptions);
+    constructor({ options, telescopeTable }?: TypeORMLoggerOptions);
     logQuery(query: string, parameters?: any[], queryRunner?: any): void;
     logQuerySlow(time: number, query: string, parameters?: any[], queryRunner?: any): void;
     logQueryError(error: string, query: string, parameters?: any[], queryRunner?: QueryRunner): void;
