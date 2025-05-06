@@ -4,25 +4,44 @@ import {eventEmitter} from "../Telescope";
 import EventEmitter from "node:events";
 import {LoggerOptions} from "typeorm/logger/LoggerOptions";
 
+type TypeORMLoggerOptions = {
+    options?: LoggerOptions,
+    telescopeTable?: string
+}
 
 export default class TypeORMLogger extends AbstractLogger {
 
     private eventEmitter: EventEmitter;
+    private telescopeTable: string;
 
-    constructor(options: LoggerOptions | undefined = true) {
+    constructor({
+                    options = true,
+                    telescopeTable = 'telescopes'
+                }: TypeORMLoggerOptions) {
         super(options);
         this.eventEmitter = eventEmitter
+        this.telescopeTable = telescopeTable;
     }
 
     public logQuery(query: string, parameters?: any[], queryRunner?: any): void {
+        // If the query is from telescope, we don't want to log it
+        if (query.includes(this.telescopeTable)) {
+            return;
+        }
         this.eventEmitter.emit('query', LogType.LOG, query, parameters);
     }
 
     public logQuerySlow(time: number, query: string, parameters?: any[], queryRunner?: any): void {
+        if (query.includes(this.telescopeTable)) {
+            return;
+        }
         this.eventEmitter.emit('query', LogType.QUERY_SLOW, query, parameters, time);
     }
 
     public logQueryError(error: string, query: string, parameters?: any[], queryRunner?: QueryRunner) {
+        if (query.includes(this.telescopeTable)) {
+            return;
+        }
         this.eventEmitter.emit('query', LogType.QUERY_ERROR, query, parameters, error);
     }
 
