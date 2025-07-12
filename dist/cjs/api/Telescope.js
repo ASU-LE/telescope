@@ -109,7 +109,7 @@ class Telescope {
         });
     }
     resolveDir() {
-        let dir = process.cwd() + '/node_modules/@damianchojnacki/telescope/dist/';
+        let dir = process.cwd() + '/node_modules/@asule/node-telescope/dist/';
         if (!(0, fs_1.existsSync)(dir + 'index.html')) {
             dir = path_1.default.join(process.cwd(), '/dist/');
         }
