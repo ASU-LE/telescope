@@ -1,4 +1,5 @@
 export default class MemoryDriver {
+    db;
     constructor() {
         this.db = {
             requests: [],

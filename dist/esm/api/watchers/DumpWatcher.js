@@ -10,6 +10,8 @@ export function dump(data) {
     watcher.save();
 }
 export default class DumpWatcher {
+    static entryType = WatcherEntryCollectionType.dump;
+    data;
     constructor(data) {
         this.data = data;
     }
@@ -20,4 +22,3 @@ export default class DumpWatcher {
         DB.dumps().save(entry);
     }
 }
-DumpWatcher.entryType = WatcherEntryCollectionType.dump;

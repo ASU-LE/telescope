@@ -17,8 +17,18 @@ export class RequestWatcherEntry extends WatcherEntry {
     }
 }
 export default class RequestWatcher {
+    static entryType = WatcherEntryCollectionType.request;
+    static paramsToHide = ['password', 'token', '_csrf'];
+    static ignorePaths = [];
+    static responseSizeLimit = 64;
+    batchId;
+    request;
+    response;
+    responseBody = '';
+    startTime;
+    getUser;
+    controllerAction;
     constructor(request, response, batchId, getUser) {
-        this.responseBody = '';
         this.batchId = batchId;
         this.request = request;
         this.response = response;
@@ -62,7 +72,7 @@ export default class RequestWatcher {
         return this.request.body;
     }
     filter(params, key) {
-        if (params.hasOwnProperty(key) && RequestWatcher.paramsToHide.includes(key)) {
+        if (Object.hasOwn(params, key) && RequestWatcher.paramsToHide.includes(key)) {
             return Object.assign(params, { [key]: '********' });
         }
         return params;
@@ -94,7 +104,3 @@ export default class RequestWatcher {
         return checks.includes(true);
     }
 }
-RequestWatcher.entryType = WatcherEntryCollectionType.request;
-RequestWatcher.paramsToHide = ['password', 'token', '_csrf'];
-RequestWatcher.ignorePaths = [];
-RequestWatcher.responseSizeLimit = 64;

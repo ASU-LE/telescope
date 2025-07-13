@@ -38,6 +38,11 @@ class ClientRequestWatcherEntry extends WatcherEntry_js_1.default {
 }
 exports.ClientRequestWatcherEntry = ClientRequestWatcherEntry;
 class ClientRequestWatcher {
+    static entryType = WatcherEntry_js_1.WatcherEntryCollectionType.clientRequest;
+    static ignoreUrls = [];
+    batchId;
+    request;
+    response;
     constructor(request, response, batchId) {
         this.batchId = batchId;
         this.request = request;
@@ -98,5 +103,3 @@ class ClientRequestWatcher {
     }
 }
 exports.default = ClientRequestWatcher;
-ClientRequestWatcher.entryType = WatcherEntry_js_1.WatcherEntryCollectionType.clientRequest;
-ClientRequestWatcher.ignoreUrls = [];

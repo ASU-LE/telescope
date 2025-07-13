@@ -134,7 +134,7 @@ export default class RequestWatcher
 
     private filter(params: object, key: string): object
     {
-        if (params.hasOwnProperty(key) && RequestWatcher.paramsToHide.includes(key)) {
+        if (Object.hasOwn(params, key) && RequestWatcher.paramsToHide.includes(key)) {
             return Object.assign(params, {[key]: '********'})
         }
 

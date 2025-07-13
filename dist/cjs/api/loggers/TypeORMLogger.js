@@ -4,6 +4,8 @@ const typeorm_1 = require("typeorm");
 const TypeORMWatcher_1 = require("../watchers/TypeORMWatcher");
 const Telescope_1 = require("../Telescope");
 class TypeORMLogger extends typeorm_1.AbstractLogger {
+    eventEmitter;
+    telescopeTable;
     constructor({ options = true, telescopeTable = 'telescopes' } = {
         options: true,
         telescopeTable: 'telescopes'

@@ -183,7 +183,7 @@ export default class Telescope
 
     private resolveDir(): string
     {
-        let dir = process.cwd() + '/node_modules/@damianchojnacki/telescope/dist/'
+        let dir = process.cwd() + '/node_modules/@asule/node-telescope/dist/'
 
         if(!existsSync(dir + 'index.html')){
             dir = path.join(process.cwd(), '/dist/')

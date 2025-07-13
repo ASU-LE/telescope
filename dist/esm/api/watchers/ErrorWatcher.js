@@ -9,6 +9,10 @@ export class ErrorWatcherEntry extends WatcherEntry {
     }
 }
 export default class ErrorWatcher {
+    static entryType = WatcherEntryCollectionType.exception;
+    static ignoreErrors = [];
+    error;
+    batchId;
     constructor(error, batchId) {
         this.error = error;
         this.batchId = batchId;
@@ -99,5 +103,3 @@ export default class ErrorWatcher {
         });
     }
 }
-ErrorWatcher.entryType = WatcherEntryCollectionType.exception;
-ErrorWatcher.ignoreErrors = [];

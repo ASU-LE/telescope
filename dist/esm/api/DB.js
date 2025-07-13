@@ -1,6 +1,8 @@
 import LowDriver from "./drivers/LowDriver.js";
 import { WatcherEntryCollectionType } from "./WatcherEntry.js";
 class DB {
+    static driver = LowDriver;
+    static db;
     constructor() {
         DB.db = new DB.driver();
     }
@@ -40,5 +42,4 @@ class DB {
         return DB.db;
     }
 }
-DB.driver = LowDriver;
 export default DB;

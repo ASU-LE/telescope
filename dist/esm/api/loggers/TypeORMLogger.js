@@ -2,6 +2,8 @@ import { AbstractLogger } from "typeorm";
 import { LogType } from "../watchers/TypeORMWatcher";
 import { eventEmitter } from "../Telescope";
 export default class TypeORMLogger extends AbstractLogger {
+    eventEmitter;
+    telescopeTable;
     constructor({ options = true, telescopeTable = 'telescopes' } = {
         options: true,
         telescopeTable: 'telescopes'

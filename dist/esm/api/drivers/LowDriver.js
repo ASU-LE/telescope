@@ -1,15 +1,16 @@
 import { unlinkSync } from "fs";
 import JSONFileSyncAdapter from "./JSONFileSyncAdapter.js";
 export default class LowDriver {
+    adapter;
+    db = {
+        requests: [],
+        exceptions: [],
+        dumps: [],
+        logs: [],
+        queries: [],
+        "client-requests": [],
+    };
     constructor() {
-        this.db = {
-            requests: [],
-            exceptions: [],
-            dumps: [],
-            logs: [],
-            queries: [],
-            "client-requests": [],
-        };
         this.adapter = new JSONFileSyncAdapter('db.json');
         this.adapter.read();
     }
