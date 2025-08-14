@@ -19,6 +19,9 @@ export class TypeORMWatcherEntry extends WatcherEntry {
     }
 }
 export default class TypeORMWatcher {
+    static entryType = WatcherEntryCollectionType.log;
+    data;
+    batchId;
     constructor(data, level, batchId) {
         this.batchId = batchId;
         this.data = { level, data };
@@ -34,4 +37,3 @@ export default class TypeORMWatcher {
         await DB.logs().save(entry);
     }
 }
-TypeORMWatcher.entryType = WatcherEntryCollectionType.log;

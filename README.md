@@ -2,19 +2,15 @@
 <p align="center">
     <img src="https://img.shields.io/badge/express-%3E%3D%204.0.0-blue" alt="Express version >= 4.0.0"/>
     <img src="https://img.shields.io/badge/license-MIT-brightgreen" alt="License MIT"/>
-    <img src="https://img.shields.io/npm/dm/@asule/telescope" alt="Downloads"/>
-    <img src="https://img.shields.io/github/actions/workflow/status/ASU-LE/telescope/node.js.yml" alt="Build">
+    <img src="https://img.shields.io/npm/dm/@mrsafalpiya/node-telescope" alt="Downloads"/>
+    <img src="https://img.shields.io/github/actions/workflow/status/mrsafalpiya/node-telescope/node.js.yml" alt="Build">
 </p>
 
 ## THIS IS A FORK!
 
 Damian Chojnacki <damianchojnacki@op.pl> (https://damianchojnacki.com) is the original creator of this package and the original repository is located at
-https://github.com/damianchojnacki/telescope.
-
-This fork is maintained by ASU LE and is a continuation of the original project, with some new enhancements,
-updates to NPM packages, and some bug fixes. The original repository has not been maintained in over 3 years, and this 
-fork is intended to provide a more stable and up-to-date version of the package along with some new
-features that were missing from the original.
+https://github.com/damianchojnacki/telescope. Then ASU LE forked the project as a continuation of the original project, with some new enhancements,
+updates to NPM packages, and some bug fixes.
 
 ## Introduction
 Node.js Telescope is an elegant debug assistant based on Telescope for Laravel framework. 
@@ -22,22 +18,18 @@ Telescope provides insight into the requests coming into your application,
 exceptions, console.log entries, variable dumps, and more. Telescope makes a 
 wonderful companion to your local development environment.
 
-### [Laravel Telescope](https://github.com/laravel/telescope)
-
-![User interface](https://camo.githubusercontent.com/01232f71f11388af662f685d5b110b29517b1ebc15bb831404f9d4818ce1afdd/68747470733a2f2f6c61726176656c2e636f6d2f6173736574732f696d672f6578616d706c65732f53637265656e5f53686f745f323031382d31302d30395f61745f312e34372e32335f504d2e706e67)
-
 ## Docs
 ### 1. Installation
 
 ```npm
-npm i @asule/node-telescope
+npm i @mrsafalpiya/node-telescope
 ```
 
 ### 2. Usage
 Setup Telescope BEFORE any route. Set up ErrorWatcher if needed at the end.
 
 ```javascript
-import Telescope, { ErrorWatcher } from '@asule/node-telescope'
+import Telescope, { ErrorWatcher } from '@mrsafalpiya/node-telescope'
 
 const app = express()
 
@@ -81,7 +73,7 @@ Logs unhandled errors.
 Saves dump messages.
 
 ```javascript
-import { dump } from "@asule/node-telescope"
+import { dump } from "@mrsafalpiya/node-telescope"
 
 dump("foo")
 ```
@@ -189,7 +181,7 @@ const dataSourceConfig: any = {
 ### Database drivers
 Customizing database driver:
 ```javascript
-import { MemoryDriver } from "@asule/node-telescope"
+import { MemoryDriver } from "@mrsafalpiya/node-telescope"
 
 const telescope = Telescope.setup(app, {
     databaseDriver: MemoryDriver

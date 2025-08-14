@@ -6,7 +6,7 @@ import MemoryDriver from './api/drivers/MemoryDriver.js'
 import RequestWatcher, {RequestWatcherData, RequestWatcherEntry} from './api/watchers/RequestWatcher.js'
 import ClientRequestWatcher, {ClientRequestWatcherData, ClientRequestWatcherEntry} from './api/watchers/ClientRequestWatcher.js'
 import ErrorWatcher, {ErrorWatcherData, ErrorWatcherEntry} from './api/watchers/ErrorWatcher.js'
-import DumpWatcher, {DumpWatcherData, DumpWatcherEntry} from './api/watchers/DumpWatcher.js'
+import DumpWatcher, {dump, DumpWatcherData, DumpWatcherEntry} from './api/watchers/DumpWatcher.js'
 import LogWatcher, {LogWatcherData, LogWatcherEntry} from './api/watchers/LogWatcher.js'
 
 import DB, {Driver} from './api/DB.js'
@@ -32,6 +32,7 @@ export {
     ErrorWatcher,
     ErrorWatcherEntry,
     ErrorWatcherData,
+    dump,
     DumpWatcher,
     DumpWatcherEntry,
     DumpWatcherData,

@@ -6,15 +6,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
 const JSONFileSyncAdapter_js_1 = __importDefault(require("./JSONFileSyncAdapter.js"));
 class LowDriver {
+    adapter;
+    db = {
+        requests: [],
+        exceptions: [],
+        dumps: [],
+        logs: [],
+        queries: [],
+        "client-requests": [],
+    };
     constructor() {
-        this.db = {
-            requests: [],
-            exceptions: [],
-            dumps: [],
-            logs: [],
-            queries: [],
-            "client-requests": [],
-        };
         this.adapter = new JSONFileSyncAdapter_js_1.default('db.json');
         this.adapter.read();
     }

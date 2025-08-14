@@ -18,6 +18,14 @@ export var WatcherEntryCollectionType;
     WatcherEntryCollectionType["clientRequest"] = "client-requests";
 })(WatcherEntryCollectionType || (WatcherEntryCollectionType = {}));
 export default class WatcherEntry {
+    content;
+    created_at;
+    family_hash;
+    id;
+    batchId;
+    sequence;
+    tags;
+    type;
     constructor(name, data, batchId) {
         this.id = uuidv4();
         this.created_at = new Date().toISOString();

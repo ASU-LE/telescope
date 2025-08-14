@@ -1,6 +1,6 @@
 import {AbstractLogger, LogLevel, LogMessage, QueryRunner} from "typeorm"
-import {LogType} from "../watchers/TypeORMWatcher";
-import {eventEmitter} from "../Telescope";
+import {LogType} from "../watchers/TypeORMWatcher.js";
+import {eventEmitter} from "../Telescope.js";
 import EventEmitter from "node:events";
 import {LoggerOptions} from "typeorm/logger/LoggerOptions";
 

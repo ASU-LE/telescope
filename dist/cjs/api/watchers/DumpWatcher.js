@@ -41,6 +41,8 @@ function dump(data) {
 }
 exports.dump = dump;
 class DumpWatcher {
+    static entryType = WatcherEntry_js_1.WatcherEntryCollectionType.dump;
+    data;
     constructor(data) {
         this.data = data;
     }
@@ -52,4 +54,3 @@ class DumpWatcher {
     }
 }
 exports.default = DumpWatcher;
-DumpWatcher.entryType = WatcherEntry_js_1.WatcherEntryCollectionType.dump;

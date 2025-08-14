@@ -44,6 +44,9 @@ class LogWatcherEntry extends WatcherEntry_js_1.default {
 }
 exports.LogWatcherEntry = LogWatcherEntry;
 class LogWatcher {
+    static entryType = WatcherEntry_js_1.WatcherEntryCollectionType.log;
+    data;
+    batchId;
     constructor(data, level, batchId) {
         this.batchId = batchId;
         this.data = {
@@ -95,4 +98,3 @@ class LogWatcher {
     }
 }
 exports.default = LogWatcher;
-LogWatcher.entryType = WatcherEntry_js_1.WatcherEntryCollectionType.log;

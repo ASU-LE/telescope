@@ -8,6 +8,11 @@ export class ClientRequestWatcherEntry extends WatcherEntry {
     }
 }
 export default class ClientRequestWatcher {
+    static entryType = WatcherEntryCollectionType.clientRequest;
+    static ignoreUrls = [];
+    batchId;
+    request;
+    response;
     constructor(request, response, batchId) {
         this.batchId = batchId;
         this.request = request;
@@ -67,5 +72,3 @@ export default class ClientRequestWatcher {
         return checks.includes(true);
     }
 }
-ClientRequestWatcher.entryType = WatcherEntryCollectionType.clientRequest;
-ClientRequestWatcher.ignoreUrls = [];

@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const LowDriver_js_1 = __importDefault(require("./drivers/LowDriver.js"));
 const WatcherEntry_js_1 = require("./WatcherEntry.js");
 class DB {
+    static driver = LowDriver_js_1.default;
+    static db;
     constructor() {
         DB.db = new DB.driver();
     }
@@ -45,5 +47,4 @@ class DB {
         return DB.db;
     }
 }
-DB.driver = LowDriver_js_1.default;
 exports.default = DB;

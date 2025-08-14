@@ -4,7 +4,7 @@ import MemoryDriver from './api/drivers/MemoryDriver.js';
 import RequestWatcher, { RequestWatcherEntry } from './api/watchers/RequestWatcher.js';
 import ClientRequestWatcher, { ClientRequestWatcherEntry } from './api/watchers/ClientRequestWatcher.js';
 import ErrorWatcher, { ErrorWatcherEntry } from './api/watchers/ErrorWatcher.js';
-import DumpWatcher, { DumpWatcherEntry } from './api/watchers/DumpWatcher.js';
+import DumpWatcher, { dump, DumpWatcherEntry } from './api/watchers/DumpWatcher.js';
 import LogWatcher, { LogWatcherEntry } from './api/watchers/LogWatcher.js';
 import DB from './api/DB.js';
 import Telescope from './api/Telescope.js';
@@ -12,4 +12,4 @@ import WatcherEntry, { WatcherEntryCollectionType, WatcherEntryDataType } from '
 import TypeORMWatcher, { TypeORMWatcherEntry } from './api/watchers/TypeORMWatcher.js';
 import TypeORMLogger from './api/loggers/TypeORMLogger.js';
 export default Telescope;
-export { JSONFileSyncAdapter, LowDriver, MemoryDriver, RequestWatcher, RequestWatcherEntry, ClientRequestWatcher, ClientRequestWatcherEntry, ErrorWatcher, ErrorWatcherEntry, DumpWatcher, DumpWatcherEntry, LogWatcher, LogWatcherEntry, TypeORMWatcher, TypeORMWatcherEntry, TypeORMLogger, DB, WatcherEntry, WatcherEntryDataType, WatcherEntryCollectionType };
+export { JSONFileSyncAdapter, LowDriver, MemoryDriver, RequestWatcher, RequestWatcherEntry, ClientRequestWatcher, ClientRequestWatcherEntry, ErrorWatcher, ErrorWatcherEntry, dump, DumpWatcher, DumpWatcherEntry, LogWatcher, LogWatcherEntry, TypeORMWatcher, TypeORMWatcherEntry, TypeORMLogger, DB, WatcherEntry, WatcherEntryDataType, WatcherEntryCollectionType };

@@ -14,11 +14,21 @@ const ErrorWatcher_js_1 = __importDefault(require("./watchers/ErrorWatcher.js"))
 const DumpWatcher_js_1 = __importDefault(require("./watchers/DumpWatcher.js"));
 const fs_1 = require("fs");
 const path_1 = __importDefault(require("path"));
-const TypeORMWatcher_1 = __importDefault(require("./watchers/TypeORMWatcher"));
+const TypeORMWatcher_js_1 = __importDefault(require("./watchers/TypeORMWatcher.js"));
 const node_events_1 = __importDefault(require("node:events"));
 const telescopeEmitter = new node_events_1.default();
 exports.eventEmitter = telescopeEmitter;
 class Telescope {
+    static enabledWatchers = [
+        RequestWatcher_js_1.default,
+        ErrorWatcher_js_1.default,
+        ClientRequestWatcher_js_1.default,
+        DumpWatcher_js_1.default,
+        LogWatcher_js_1.default
+    ];
+    app;
+    batchId;
+    static enableClient = true;
     constructor(app) {
         this.app = app;
     }
@@ -40,8 +50,8 @@ class Telescope {
             && ClientRequestWatcher_js_1.default.capture(telescope);
         Telescope.enabledWatchers.includes(LogWatcher_js_1.default)
             && LogWatcher_js_1.default.capture(telescope);
-        Telescope.enabledWatchers.includes(TypeORMWatcher_1.default)
-            && TypeORMWatcher_1.default.capture(telescope);
+        Telescope.enabledWatchers.includes(TypeORMWatcher_js_1.default)
+            && TypeORMWatcher_js_1.default.capture(telescope);
         return telescope;
     }
     static config(options) {
@@ -109,7 +119,7 @@ class Telescope {
         });
     }
     resolveDir() {
-        let dir = process.cwd() + '/node_modules/@damianchojnacki/telescope/dist/';
+        let dir = process.cwd() + '/node_modules/@mrsafalpiya/node-telescope/dist/';
         if (!(0, fs_1.existsSync)(dir + 'index.html')) {
             dir = path_1.default.join(process.cwd(), '/dist/');
         }
@@ -129,11 +139,3 @@ class Telescope {
     }
 }
 exports.default = Telescope;
-Telescope.enabledWatchers = [
-    RequestWatcher_js_1.default,
-    ErrorWatcher_js_1.default,
-    ClientRequestWatcher_js_1.default,
-    DumpWatcher_js_1.default,
-    LogWatcher_js_1.default
-];
-Telescope.enableClient = true;

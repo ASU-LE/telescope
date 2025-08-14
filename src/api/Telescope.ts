@@ -11,7 +11,7 @@ import {existsSync} from "fs"
 import {fileURLToPath, resolve} from "url"
 import * as url from "url"
 import path from "path"
-import TypeORMWatcher from "./watchers/TypeORMWatcher";
+import TypeORMWatcher from "./watchers/TypeORMWatcher.js";
 import EventEmitter from 'node:events';
 
 export type Watcher =
@@ -183,7 +183,7 @@ export default class Telescope
 
     private resolveDir(): string
     {
-        let dir = process.cwd() + '/node_modules/@damianchojnacki/telescope/dist/'
+        let dir = process.cwd() + '/node_modules/@mrsafalpiya/node-telescope/dist/'
 
         if(!existsSync(dir + 'index.html')){
             dir = path.join(process.cwd(), '/dist/')

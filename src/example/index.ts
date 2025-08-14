@@ -1,5 +1,5 @@
 import express, {NextFunction, Request, Response} from 'express'
-import Telescope, {ErrorWatcher} from '../index.js'
+import Telescope, {ErrorWatcher, dump} from '../index.js'
 import axios from "axios"
 
 const app = express()
@@ -8,6 +8,7 @@ const port = process.env.PORT || 3000;
 const telescope = Telescope.setup(app)
 
 app.get('/', (request, response, next) => {
+    dump('Hello world')
     throw new Error('lol')
     response.send('Hello world')
 })

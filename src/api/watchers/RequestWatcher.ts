@@ -117,9 +117,11 @@ export default class RequestWatcher
 
         this.response.send = (content) =>
         {
+            const parsedContent = this.response.get('Content-Type')?.includes('application/json') ? JSON.parse(content) : content;
+
             const sent = oldSend.call(this.response, content)
 
-            callback(this.contentWithinLimits(content))
+            callback(this.contentWithinLimits(parsedContent))
 
             return sent
         }
@@ -134,7 +136,7 @@ export default class RequestWatcher
 
     private filter(params: object, key: string): object
     {
-        if (params.hasOwnProperty(key) && RequestWatcher.paramsToHide.includes(key)) {
+        if (Object.hasOwn(params, key) && RequestWatcher.paramsToHide.includes(key)) {
             return Object.assign(params, {[key]: '********'})
         }
 

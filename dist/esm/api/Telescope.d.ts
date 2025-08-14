@@ -6,7 +6,7 @@ import LogWatcher from "./watchers/LogWatcher.js";
 import RequestWatcher, { GetUserFunction } from "./watchers/RequestWatcher.js";
 import ErrorWatcher from "./watchers/ErrorWatcher.js";
 import DumpWatcher from "./watchers/DumpWatcher.js";
-import TypeORMWatcher from "./watchers/TypeORMWatcher";
+import TypeORMWatcher from "./watchers/TypeORMWatcher.js";
 import EventEmitter from 'node:events';
 export type Watcher = typeof RequestWatcher | typeof ErrorWatcher | typeof ClientRequestWatcher | typeof DumpWatcher | typeof LogWatcher | typeof TypeORMWatcher;
 export interface TelescopeOptions {

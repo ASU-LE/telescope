@@ -5,7 +5,7 @@ import MemoryDriver from './api/drivers/MemoryDriver.js';
 import RequestWatcher, { RequestWatcherData, RequestWatcherEntry } from './api/watchers/RequestWatcher.js';
 import ClientRequestWatcher, { ClientRequestWatcherData, ClientRequestWatcherEntry } from './api/watchers/ClientRequestWatcher.js';
 import ErrorWatcher, { ErrorWatcherData, ErrorWatcherEntry } from './api/watchers/ErrorWatcher.js';
-import DumpWatcher, { DumpWatcherData, DumpWatcherEntry } from './api/watchers/DumpWatcher.js';
+import DumpWatcher, { dump, DumpWatcherData, DumpWatcherEntry } from './api/watchers/DumpWatcher.js';
 import LogWatcher, { LogWatcherData, LogWatcherEntry } from './api/watchers/LogWatcher.js';
 import DB, { Driver } from './api/DB.js';
 import Telescope, { TelescopeOptions, Watcher } from './api/Telescope.js';
@@ -13,4 +13,4 @@ import WatcherEntry, { WatcherEntryCollectionType, WatcherEntryDataType, Watcher
 import TypeORMWatcher, { TypeORMWatcherEntry, TypeORMWatcherData } from './api/watchers/TypeORMWatcher.js';
 import TypeORMLogger from './api/loggers/TypeORMLogger.js';
 export default Telescope;
-export { DatabaseDriver, WatcherData, JSONFileSyncAdapter, LowDriver, MemoryDriver, RequestWatcher, RequestWatcherEntry, RequestWatcherData, ClientRequestWatcher, ClientRequestWatcherEntry, ClientRequestWatcherData, ErrorWatcher, ErrorWatcherEntry, ErrorWatcherData, DumpWatcher, DumpWatcherEntry, DumpWatcherData, LogWatcher, LogWatcherEntry, LogWatcherData, TypeORMWatcher, TypeORMWatcherEntry, TypeORMWatcherData, TypeORMLogger, DB, Driver, TelescopeOptions, Watcher, WatcherEntry, WatcherEntryDataType, WatcherEntryCollectionType, WatcherType };
+export { DatabaseDriver, WatcherData, JSONFileSyncAdapter, LowDriver, MemoryDriver, RequestWatcher, RequestWatcherEntry, RequestWatcherData, ClientRequestWatcher, ClientRequestWatcherEntry, ClientRequestWatcherData, ErrorWatcher, ErrorWatcherEntry, ErrorWatcherData, dump, DumpWatcher, DumpWatcherEntry, DumpWatcherData, LogWatcher, LogWatcherEntry, LogWatcherData, TypeORMWatcher, TypeORMWatcherEntry, TypeORMWatcherData, TypeORMLogger, DB, Driver, TelescopeOptions, Watcher, WatcherEntry, WatcherEntryDataType, WatcherEntryCollectionType, WatcherType };

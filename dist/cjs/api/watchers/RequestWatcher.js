@@ -47,8 +47,18 @@ class RequestWatcherEntry extends WatcherEntry_js_1.default {
 }
 exports.RequestWatcherEntry = RequestWatcherEntry;
 class RequestWatcher {
+    static entryType = WatcherEntry_js_1.WatcherEntryCollectionType.request;
+    static paramsToHide = ['password', 'token', '_csrf'];
+    static ignorePaths = [];
+    static responseSizeLimit = 64;
+    batchId;
+    request;
+    response;
+    responseBody = '';
+    startTime;
+    getUser;
+    controllerAction;
     constructor(request, response, batchId, getUser) {
-        this.responseBody = '';
         this.batchId = batchId;
         this.request = request;
         this.response = response;
@@ -82,8 +92,9 @@ class RequestWatcher {
     interceptResponse(callback) {
         const oldSend = this.response.send;
         this.response.send = (content) => {
+            const parsedContent = this.response.get('Content-Type')?.includes('application/json') ? JSON.parse(content) : content;
             const sent = oldSend.call(this.response, content);
-            callback(this.contentWithinLimits(content));
+            callback(this.contentWithinLimits(parsedContent));
             return sent;
         };
     }
@@ -92,7 +103,7 @@ class RequestWatcher {
         return this.request.body;
     }
     filter(params, key) {
-        if (params.hasOwnProperty(key) && RequestWatcher.paramsToHide.includes(key)) {
+        if (Object.hasOwn(params, key) && RequestWatcher.paramsToHide.includes(key)) {
             return Object.assign(params, { [key]: '********' });
         }
         return params;
@@ -125,7 +136,3 @@ class RequestWatcher {
     }
 }
 exports.default = RequestWatcher;
-RequestWatcher.entryType = WatcherEntry_js_1.WatcherEntryCollectionType.request;
-RequestWatcher.paramsToHide = ['password', 'token', '_csrf'];
-RequestWatcher.ignorePaths = [];
-RequestWatcher.responseSizeLimit = 64;
