@@ -8,6 +8,7 @@ export interface ClientRequestWatcherData
 {
     hostname: string
     method: Method | string
+    duration: number | null
     uri: string
     headers: Partial<AxiosRequestHeaders> | Object
     payload: object
@@ -46,6 +47,10 @@ export default class ClientRequestWatcher
 
         axios.interceptors.request.use((config) => {
             request = config
+            if (telescope.batchId) {
+                config.headers['X-Telescope-Batch-Id'] = telescope.batchId
+            }
+            config.headers['X-Telescope-Request-Start'] = new Date().toISOString()
 
             return config
         })
@@ -75,9 +80,16 @@ export default class ClientRequestWatcher
 
     public async save()
     {
+        const headers = this.request.headers as AxiosRequestHeaders
+        let duration: number | null = Date.now() - new Date(headers['X-Telescope-Request-Start'] as string).getTime();
+        if (duration < 0) {
+            duration = null; // If the duration is negative, set it to null
+        }
+
         const entry = new ClientRequestWatcherEntry({
             hostname: hostname(),
             method: this.request.method?.toUpperCase() ?? '',
+            duration: duration,
             uri: this.request.url ?? '',
             headers: this.request.headers ?? {},
             payload: this.request.data ?? {},
