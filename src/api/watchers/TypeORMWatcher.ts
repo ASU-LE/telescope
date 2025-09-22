@@ -48,6 +48,6 @@ export default class TypeORMWatcher {
 
     public async save() {
         const entry = new TypeORMWatcherEntry(this.data, this.batchId)
-        await DB.logs().save(entry)
+        await DB.queries().save(entry)
     }
 }

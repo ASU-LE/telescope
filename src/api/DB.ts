@@ -54,6 +54,11 @@ class DB
         return this.entry(WatcherEntryCollectionType.log)
     }
 
+    public static queries()
+    {
+        return this.entry(WatcherEntryCollectionType.query)
+    }
+
     public static clientRequests()
     {
         return this.entry(WatcherEntryCollectionType.clientRequest)
