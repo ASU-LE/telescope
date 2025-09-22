@@ -52,7 +52,6 @@ export default class Telescope
 
     public app: Express
     public batchId?: string
-    private static enableClient: boolean = true;
 
     constructor(app: Express)
     {
@@ -64,13 +63,6 @@ export default class Telescope
         Telescope.config(options ?? {})
 
         const telescope = new Telescope(app)
-
-        if (Telescope.enableClient) {
-            app.use('/telescope', Telescope.isAuthorized)
-
-            telescope.setUpApi()
-            telescope.setUpStaticFiles()
-        }
 
         app.use((request, response, next) => {
             telescope.batchId = uuidv4()
@@ -99,14 +91,6 @@ export default class Telescope
             Telescope.enabledWatchers = options.enabledWatchers
         }
 
-        if (options.enableClient) {
-            Telescope.enableClient = options.enableClient
-        }
-
-        if (options.isAuthorized) {
-            Telescope.isAuthorized = options.isAuthorized
-        }
-
         if (options.databaseDriver) {
             DB.driver = options.databaseDriver
         }
@@ -132,80 +116,8 @@ export default class Telescope
         }
     }
 
-    private static isAuthorized(request: Request, response: Response, next: NextFunction): void
-    {
-        if (process.env.NODE_ENV === "production") {
-            response.status(403).send('Forbidden')
-
-            return
-        }
-
-        next()
-    }
-
     public static getEnabledWatchers(): string[]
     {
         return Telescope.enabledWatchers.map((watcher) => watcher.entryType)
-    }
-
-    private setUpApi()
-    {
-        this.app.post('/telescope/telescope-api/:entry', async (request, response) => {
-            const entries = await DB.entry(request.params.entry as WatcherEntryCollectionType).get(Number(request.query.take ?? 50))
-
-            response.json({
-                entries,
-                status: "enabled"
-            })
-        })
-
-        this.app.get('/telescope/telescope-api/:entry/:id', async (request, response) => {
-            const entry = await DB.entry(request.params.entry as WatcherEntryCollectionType).find(request.params.id)
-
-            response.json({
-                entry,
-                batch: await DB.batch(entry?.batchId ?? '')
-            })
-        })
-
-        this.app.delete("/telescope/telescope-api/entries", async (request, response) => {
-            await DB.truncate()
-
-            response.send("OK")
-        })
-
-        this.app.get("/telescope/telescope-api/entries", async (request, response) => {
-            response.json({
-                enabled: Telescope.getEnabledWatchers()
-            })
-        })
-    }
-
-    private resolveDir(): string
-    {
-        let dir = process.cwd() + '/node_modules/@damianchojnacki/telescope/dist/'
-
-        if(!existsSync(dir + 'index.html')){
-            dir = path.join(process.cwd(), '/dist/')
-        }
-
-        return dir
-    }
-
-    private setUpStaticFiles()
-    {
-        const dir = this.resolveDir()
-
-        this.app.use('/telescope/app.js', express.static(dir + "app.js"))
-        this.app.use('/telescope/app.css', express.static(dir + "app.css"))
-        this.app.use('/telescope/app-dark.css', express.static(dir + "app-dark.css"))
-        this.app.use('/telescope/favicon.ico', express.static(dir + "favicon.ico"))
-
-        Telescope.getEnabledWatchers().forEach((watcher) => {
-            this.app.use(`/telescope/${watcher}`, express.static(dir + 'index.html'))
-            this.app.use(`/telescope/${watcher}/:id`, express.static(dir + 'index.html'))
-        })
-
-        this.app.get('/telescope/', (request, response) => response.redirect('/telescope/requests'))
     }
 }
