@@ -1,16 +1,11 @@
-import express, {Express, NextFunction, Request, Response} from 'express'
+import {Express, NextFunction, Request, Response} from 'express'
 import DB, {Driver} from './DB.js'
 import ClientRequestWatcher from "./watchers/ClientRequestWatcher.js"
 import LogWatcher from "./watchers/LogWatcher.js"
 import RequestWatcher, {GetUserFunction} from "./watchers/RequestWatcher.js"
 import {v4 as uuidv4} from "uuid"
-import {WatcherEntryCollectionType} from "./WatcherEntry.js"
 import ErrorWatcher from "./watchers/ErrorWatcher.js"
 import DumpWatcher from "./watchers/DumpWatcher.js"
-import {existsSync} from "fs"
-import {fileURLToPath, resolve} from "url"
-import * as url from "url"
-import path from "path"
 import TypeORMWatcher from "./watchers/TypeORMWatcher";
 import EventEmitter from 'node:events';
 

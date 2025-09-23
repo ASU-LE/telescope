@@ -124,7 +124,6 @@ Telescope.setup(app, {
         DumpWatcher,
         LogWatcher,
     },
-    enableClient: true,
     responseSizeLimit: 128,
     paramsToHide: [
         'password',
@@ -150,8 +149,6 @@ Telescope.setup(app, {
 })
 ```
 `enabledWatchers` - list of enabled watchers
-
-`enableClient` - enables client side telescope, which is enabled by default
 
 `responseSizeLimit` - response size limit (KB).
 If the limit is exceeded, the watcher will not log the response body.
