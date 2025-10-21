@@ -1,6 +1,6 @@
 import DB from "../DB.js"
 import WatcherEntry, {WatcherEntryCollectionType, WatcherEntryDataType} from "../WatcherEntry.js"
-import Telescope, {eventEmitter} from "../Telescope.js"
+import Telescope, {DatabaseOptions, eventEmitter} from "../Telescope.js"
 import {AdvancedConsoleLogger} from "typeorm";
 import {InspectOptions} from "util";
 import {EventEmitter} from "typeorm/browser/platform/BrowserPlatformTools";
@@ -33,6 +33,11 @@ export default class TypeORMWatcher {
 
     private data: TypeORMWatcherData
     private batchId?: string
+    public static options: DatabaseOptions = {
+        storeQueryErrors: true,
+        storeNormalQueries: true,
+        storeSlowQueries: true,
+    }
 
     constructor(data: any, level: LogType, batchId?: string) {
         this.batchId = batchId
@@ -42,7 +47,20 @@ export default class TypeORMWatcher {
     public static capture(telescope: Telescope) {
         eventEmitter.on('query', async (type: LogType, query: any, parameters: any[], ...args: any[]) => {
             const watcher = new TypeORMWatcher({query, parameters, args}, type, telescope.batchId)
-            await watcher.save()
+            switch(type) {
+                case LogType.ERROR:
+                    if(TypeORMWatcher.options.storeQueryErrors)
+                        await watcher.save()
+                    break;
+                case LogType.QUERY_SLOW:
+                    if(TypeORMWatcher.options.storeSlowQueries)
+                        await watcher.save();
+                    break;
+                default:
+                    if(TypeORMWatcher.options.storeNormalQueries)
+                        await watcher.save();
+                    break;
+            }
         })
     }
 

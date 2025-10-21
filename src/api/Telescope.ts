@@ -6,7 +6,7 @@ import RequestWatcher, {GetUserFunction} from "./watchers/RequestWatcher.js"
 import {v4 as uuidv4} from "uuid"
 import ErrorWatcher from "./watchers/ErrorWatcher.js"
 import DumpWatcher from "./watchers/DumpWatcher.js"
-import TypeORMWatcher from "./watchers/TypeORMWatcher";
+import TypeORMWatcher, {TypeORMWatcherEntry} from "./watchers/TypeORMWatcher";
 import EventEmitter from 'node:events';
 
 export type Watcher =
@@ -17,10 +17,33 @@ export type Watcher =
     typeof LogWatcher |
     typeof TypeORMWatcher
 
+/**
+ * Options for the database.
+ * @typedef {object} DatabaseOptions
+ */
+export interface DatabaseOptions {
+    /**
+     * Store queries that take longer than 100ms.
+     * @type {boolean}
+     */
+    storeSlowQueries?: boolean
+    /**
+     * Store query errors.
+     * @type {boolean}
+     */
+    storeQueryErrors?: boolean
+    /**
+     * Store queries that are fast, and not errors.
+     * @type {boolean}
+     */
+    storeNormalQueries?: boolean
+}
+
 export interface TelescopeOptions
 {
     enabledWatchers?: Watcher[]
     databaseDriver?: Driver
+    databaseOptions?: DatabaseOptions
     responseSizeLimit?: number
     paramsToHide?: string[]
     ignorePaths?: string[]
@@ -108,6 +131,10 @@ export default class Telescope
 
         if (options.clientIgnoreUrls) {
             ClientRequestWatcher.ignoreUrls = options.clientIgnoreUrls
+        }
+
+        if (options.databaseOptions) {
+            TypeORMWatcher.options = options.databaseOptions;
         }
     }
 
